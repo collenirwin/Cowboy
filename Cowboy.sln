@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29926.136
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cowboy", "Cowboy\Cowboy.csproj", "{AAD91D3F-DA37-40E3-9047-09E6FC6E324E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cowboy", "Cowboy\Cowboy.csproj", "{D9479186-6A2A-4A14-B54D-4EF1E4D4BA71}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AAD91D3F-DA37-40E3-9047-09E6FC6E324E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AAD91D3F-DA37-40E3-9047-09E6FC6E324E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AAD91D3F-DA37-40E3-9047-09E6FC6E324E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AAD91D3F-DA37-40E3-9047-09E6FC6E324E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9479186-6A2A-4A14-B54D-4EF1E4D4BA71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9479186-6A2A-4A14-B54D-4EF1E4D4BA71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9479186-6A2A-4A14-B54D-4EF1E4D4BA71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9479186-6A2A-4A14-B54D-4EF1E4D4BA71}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {AF3DA3A9-ACE0-4BC3-9C27-783C63B4D3C2}
+		SolutionGuid = {5350EAB5-4A23-491F-AB7C-C954F7171B94}
 	EndGlobalSection
 EndGlobal
