@@ -16,15 +16,15 @@ internal class RollCommand : ISlashCommand
         var low = command.GetOptionalIntArgument("low") ?? 1;
         var high = command.GetOptionalIntArgument("high") ?? 10;
 
-        var result = low > high
-            ? "Check yourself and try again."
-            : _random.Next(low, high + 1).ToString();
+        if (low > high)
+        {
+            throw new InvalidOperationException("Low cannot be greater than high.");
+        }
 
-        var embedBuilder = new EmbedBuilder()
-            .WithTitle($"Roll between {low} and {high}:")
-            .WithDescription(result);
+        var result = _random.Next(low, high + 1);
+        var message = $"Roll between **{low}** and **{high}**:{Environment.NewLine}> **{result}**";
 
-        await command.RespondAsync(embed: embedBuilder.Build());
+        await command.RespondAsync(text: message);
     }
 
     public SlashCommandProperties Build()
