@@ -26,24 +26,16 @@ static Task Log(LogMessage message)
 async Task Ready()
 {
     var rollCommand = new RollCommand();
-
-    var rollCommandBuilder = new SlashCommandBuilder()
-        .WithName(rollCommand.Name)
-        .WithDescription(rollCommand.Description)
-        .AddOption(new SlashCommandOptionBuilder()
-            .WithName("low")
-            .WithDescription("Lower inclusive bound.")
-            .WithType(ApplicationCommandOptionType.Integer)
-            .WithRequired(false))
-        .AddOption(new SlashCommandOptionBuilder()
-            .WithName("high")
-            .WithDescription("Upper inclusive bound.")
-            .WithType(ApplicationCommandOptionType.Integer)
-            .WithRequired(false));
-
     _slashCommands.Add(rollCommand.Name, rollCommand);
 
-    await _client.CreateGlobalApplicationCommandAsync(rollCommandBuilder.Build());
+#if !DEBUG
+    await _client.CreateGlobalApplicationCommandAsync(rollCommand.Build());
+#else
+    var guildId = Convert.ToUInt64(Environment.GetEnvironmentVariable("CowboyDiscordGuildId", EnvironmentVariableTarget.User));
+    var guild = _client.GetGuild(guildId);
+
+    await guild.CreateApplicationCommandAsync(rollCommand.Build());
+#endif
 }
 
 async Task SlashCommandExecuted(SocketSlashCommand command)
