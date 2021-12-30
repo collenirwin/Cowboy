@@ -3,7 +3,9 @@ using Discord;
 using Discord.WebSocket;
 
 DiscordSocketClient _client = new();
-Dictionary<string, ISlashCommand> _slashCommands = new();
+var _slashCommands = new Dictionary<string, ISlashCommand>()
+    .AddCommand(new RollCommand())
+    .AddCommand(new FlipCoinCommand());
 
 _client.Log += Log;
 _client.Ready += Ready;
@@ -25,16 +27,19 @@ static Task Log(LogMessage message)
 
 async Task Ready()
 {
-    var rollCommand = new RollCommand();
-    _slashCommands.Add(rollCommand.Name, rollCommand);
-
 #if !DEBUG
-    await _client.CreateGlobalApplicationCommandAsync(rollCommand.Build());
+    foreach (var command in _slashCommands.Values)
+    {
+        await _client.CreateGlobalApplicationCommandAsync(command.Build());
+    }
 #else
     var guildId = Convert.ToUInt64(Environment.GetEnvironmentVariable("CowboyDiscordGuildId", EnvironmentVariableTarget.User));
     var guild = _client.GetGuild(guildId);
 
-    await guild.CreateApplicationCommandAsync(rollCommand.Build());
+    foreach (var command in _slashCommands.Values)
+    {
+        await guild.CreateApplicationCommandAsync(command.Build());
+    }
 #endif
 }
 
