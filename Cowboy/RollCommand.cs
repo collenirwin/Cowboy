@@ -5,8 +5,6 @@ namespace Cowboy;
 
 internal class RollCommand : ISlashCommand
 {
-    private static readonly Random _random = new();
-
     public string Name => "roll";
 
     public string Description => "Rolls a random number (defaults to between 1 and 10)";
@@ -21,7 +19,7 @@ internal class RollCommand : ISlashCommand
             throw new InvalidOperationException("Low cannot be greater than high.");
         }
 
-        var result = _random.Next(low, high + 1);
+        var result = Random.Shared.Next(low, high + 1);
         var message = $"Roll between **{low}** and **{high}**:{Environment.NewLine}> **{result}**";
 
         await command.RespondAsync(text: message);
