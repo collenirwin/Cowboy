@@ -13,15 +13,15 @@ internal class RollCommand : ISlashCommand
 
     public async Task ExecuteAsync(SocketSlashCommand command)
     {
-        var low = (int)(command.Data.Options?.FirstOrDefault(option => option.Name == "low")?.Value ?? 1);
-        var high = (int)(command.Data.Options?.FirstOrDefault(option => option.Name == "high")?.Value ?? 10);
+        var low = command.GetOptionalIntArgument("low") ?? 1;
+        var high = command.GetOptionalIntArgument("high") ?? 10;
 
         var result = low > high
             ? "Check yourself and try again."
             : _random.Next(low, high + 1).ToString();
 
         var embedBuilder = new EmbedBuilder()
-            .WithTitle("Roll between {low} and {high}:")
+            .WithTitle($"Roll between {low} and {high}:")
             .WithDescription(result);
 
         await command.RespondAsync(embed: embedBuilder.Build());
