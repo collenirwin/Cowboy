@@ -1,4 +1,5 @@
-﻿using Discord.WebSocket;
+﻿using Discord;
+using Discord.WebSocket;
 
 namespace Cowboy;
 
@@ -9,4 +10,6 @@ internal interface ISlashCommand
     string Description { get; }
 
     Task ExecuteAsync(SocketSlashCommand command);
+
+    SlashCommandProperties Build();
 }

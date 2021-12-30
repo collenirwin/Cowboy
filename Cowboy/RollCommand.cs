@@ -9,7 +9,7 @@ internal class RollCommand : ISlashCommand
 
     public string Name => "roll";
 
-    public string Description => "Rolls a random number (defaults to between 1 and 10).";
+    public string Description => "Rolls a random number (defaults to between 1 and 10)";
 
     public async Task ExecuteAsync(SocketSlashCommand command)
     {
@@ -25,5 +25,23 @@ internal class RollCommand : ISlashCommand
             .WithDescription(result);
 
         await command.RespondAsync(embed: embedBuilder.Build());
+    }
+
+    public SlashCommandProperties Build()
+    {
+        return new SlashCommandBuilder()
+            .WithName(Name)
+            .WithDescription(Description)
+            .AddOption(new SlashCommandOptionBuilder()
+                .WithName("low")
+                .WithDescription("Lower inclusive bound")
+                .WithType(ApplicationCommandOptionType.Integer)
+                .WithRequired(false))
+            .AddOption(new SlashCommandOptionBuilder()
+                .WithName("high")
+                .WithDescription("Upper inclusive bound")
+                .WithType(ApplicationCommandOptionType.Integer)
+                .WithRequired(false))
+            .Build();
     }
 }
