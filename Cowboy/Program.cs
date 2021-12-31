@@ -15,9 +15,9 @@ _client.Log += Log;
 _client.Ready += Ready;
 _client.SlashCommandExecuted += SlashCommandExecuted;
 
-var token = Environment.GetEnvironmentVariable("CowboyDiscordToken", EnvironmentVariableTarget.User);
+var config = Config.CreateFromFile();
 
-await _client.LoginAsync(TokenType.Bot, token);
+await _client.LoginAsync(TokenType.Bot, config.Token);
 await _client.StartAsync();
 
 // Block this task until the program is closed.
