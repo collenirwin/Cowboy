@@ -1,0 +1,25 @@
+# To learn more about .editorconfig see https://aka.ms/editorconfigdocs
+
+# All files
+[*]
+indent_style = space
+csharp_using_directive_placement=outside_namespace:suggestion
+csharp_style_namespace_declarations=file_scoped:warning
+csharp_style_expression_bodied_operators=when_on_single_line:silent
+csharp_style_expression_bodied_constructors=when_on_single_line:silent
+csharp_style_expression_bodied_methods=when_on_single_line:silent
+csharp_style_expression_bodied_local_functions=when_on_single_line:silent
+dotnet_style_qualification_for_field=false:suggestion
+dotnet_style_qualification_for_property=false:suggestion
+dotnet_style_qualification_for_method=false:suggestion
+dotnet_style_qualification_for_event=false:suggestion
+csharp_style_var_for_built_in_types=true:silent
+csharp_style_var_when_type_is_apparent=true:silent
+csharp_style_var_elsewhere=true:silent
+dotnet_diagnostic.CA1707.severity=warning
+guidelines = 120
+guidelines_style = 1px solid 3e3e42
+
+# Xml files
+[*.xml]
+indent_size = 2
