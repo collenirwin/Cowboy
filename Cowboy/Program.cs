@@ -2,7 +2,10 @@
 using Discord;
 using Discord.WebSocket;
 
+// Our main Discord client.
 DiscordSocketClient _client = new();
+
+// Register all slash commands.
 var _slashCommands = new Dictionary<string, ISlashCommand>()
     .AddCommand(new RollCommand())
     .AddCommand(new FlipCoinCommand());
@@ -45,6 +48,7 @@ async Task Ready()
 
 async Task SlashCommandExecuted(SocketSlashCommand command)
 {
+    // Execute the slash command with the passed name, if there is one.
     if (_slashCommands.ContainsKey(command.Data.Name))
     {
         await _slashCommands[command.Data.Name].ExecuteAsync(command);

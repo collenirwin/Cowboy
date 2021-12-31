@@ -3,12 +3,18 @@ using Discord.WebSocket;
 
 namespace Cowboy;
 
+/// <summary>
+/// Slash command to roll a random number and display the result.
+/// </summary>
 internal class RollCommand : ISlashCommand
 {
+    /// <inheritdoc />
     public string Name => "roll";
 
+    /// <inheritdoc />
     public string Description => "Rolls a random number (defaults to between 1 and 10)";
 
+    /// <inheritdoc />
     public async Task ExecuteAsync(SocketSlashCommand command)
     {
         var low = command.GetOptionalIntArgument("low") ?? 1;
@@ -25,6 +31,7 @@ internal class RollCommand : ISlashCommand
         await command.RespondAsync(text: message);
     }
 
+    /// <inheritdoc />
     public SlashCommandProperties Build()
     {
         return new SlashCommandBuilder()
