@@ -1,7 +1,7 @@
 ﻿using Discord;
 using Discord.WebSocket;
 
-namespace Cowboy;
+namespace Cowboy.Commands;
 
 /// <summary>
 /// Represents a Discord Application command (or slash command).

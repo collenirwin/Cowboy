@@ -1,4 +1,6 @@
-﻿namespace Cowboy;
+﻿using Cowboy.Commands;
+
+namespace Cowboy.Utils;
 
 /// <summary>
 /// Contains extension methods for dictionaries of slash commands, keyed by <see cref="ISlashCommand.Name"/>.

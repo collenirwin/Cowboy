@@ -1,6 +1,6 @@
 ﻿using Discord.WebSocket;
 
-namespace Cowboy;
+namespace Cowboy.Utils;
 
 /// <summary>
 /// Contains extension methods for <see cref="SocketSlashCommand"/> objects.

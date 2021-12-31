@@ -1,7 +1,8 @@
-﻿using Discord;
+﻿using Cowboy.Utils;
+using Discord;
 using Discord.WebSocket;
 
-namespace Cowboy;
+namespace Cowboy.Commands;
 
 /// <summary>
 /// Slash command to roll a random number and display the result.
