@@ -16,6 +16,7 @@ internal static class SlashCommands
     static SlashCommands()
     {
         All = new Dictionary<string, ISlashCommand>()
+            .AddCommand(new HelpCommand())
             .AddCommand(new RollCommand())
             .AddCommand(new FlipCoinCommand());
     }
