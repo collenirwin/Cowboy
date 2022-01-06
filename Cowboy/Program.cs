@@ -2,7 +2,6 @@
 using CliFx.Attributes;
 using CliFx.Infrastructure;
 using Cowboy.Commands;
-using Cowboy.Utils;
 using Discord;
 using Discord.WebSocket;
 

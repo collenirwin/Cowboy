@@ -1,21 +1,20 @@
-﻿using Discord;
-using Discord.WebSocket;
+﻿using Discord.WebSocket;
 
 namespace Cowboy.Commands;
 
 /// <summary>
 /// Slash command to list all other slash commands.
 /// </summary>
-internal class HelpCommand : ISlashCommand
+internal class HelpCommand : SlashCommandBase
 {
     /// <inheritdoc />
-    public string Name => "cowboy-help";
+    public override string Name => "cowboy-help";
 
     /// <inheritdoc />
-    public string Description => "Lists all available Cowboy commands";
+    public override string Description => "Lists all available Cowboy commands";
 
     /// <inheritdoc />
-    public async Task ExecuteAsync(SocketSlashCommand command)
+    public override async Task ExecuteAsync(SocketSlashCommand command)
     {
         var commandHelpEntries = SlashCommands.All.Values
             .OrderBy(command => command.Name)
@@ -26,14 +25,5 @@ internal class HelpCommand : ISlashCommand
             string.Join(Environment.NewLine, commandHelpEntries);
 
         await command.RespondAsync(text: message);
-    }
-
-    /// <inheritdoc />
-    public SlashCommandProperties Build()
-    {
-        return new SlashCommandBuilder()
-            .WithName(Name)
-            .WithDescription(Description)
-            .Build();
     }
 }

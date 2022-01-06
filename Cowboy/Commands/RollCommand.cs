@@ -7,16 +7,16 @@ namespace Cowboy.Commands;
 /// <summary>
 /// Slash command to roll a random number and display the result.
 /// </summary>
-internal class RollCommand : ISlashCommand
+internal class RollCommand : SlashCommandBase
 {
     /// <inheritdoc />
-    public string Name => "roll";
+    public override string Name => "roll";
 
     /// <inheritdoc />
-    public string Description => "Rolls a random number (defaults to between 1 and 10)";
+    public override string Description => "Rolls a random number (defaults to between 1 and 10)";
 
     /// <inheritdoc />
-    public async Task ExecuteAsync(SocketSlashCommand command)
+    public override async Task ExecuteAsync(SocketSlashCommand command)
     {
         var low = command.GetOptionalIntArgument("low") ?? 1;
         var high = command.GetOptionalIntArgument("high") ?? 10;
@@ -33,7 +33,7 @@ internal class RollCommand : ISlashCommand
     }
 
     /// <inheritdoc />
-    public SlashCommandProperties Build()
+    public override SlashCommandProperties Build()
     {
         return new SlashCommandBuilder()
             .WithName(Name)
