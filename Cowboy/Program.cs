@@ -1,57 +1,84 @@
-﻿using Cowboy.Commands;
+﻿using CliFx;
+using CliFx.Attributes;
+using CliFx.Infrastructure;
+using Cowboy.Commands;
 using Cowboy.Utils;
 using Discord;
 using Discord.WebSocket;
 
-// Our main Discord client.
-DiscordSocketClient _client = new();
+await new CliApplicationBuilder()
+    .AddCommand<MainCommand>()
+    .Build()
+    .RunAsync();
 
-// Register all slash commands.
-var _slashCommands = new Dictionary<string, ISlashCommand>()
-    .AddCommand(new RollCommand())
-    .AddCommand(new FlipCoinCommand());
-
-_client.Log += Log;
-_client.Ready += Ready;
-_client.SlashCommandExecuted += SlashCommandExecuted;
-
-var config = Config.CreateFromFile();
-
-await _client.LoginAsync(TokenType.Bot, config.Token);
-await _client.StartAsync();
-
-// Block this task until the program is closed.
-await Task.Delay(-1);
-
-static Task Log(LogMessage message)
+[Command]
+class MainCommand : ICommand
 {
-    Console.WriteLine(message.ToString());
-    return Task.CompletedTask;
-}
+    private static readonly DiscordSocketClient _client = new();
+    private static readonly IReadOnlyDictionary<string, ISlashCommand> _slashCommands =
+        new Dictionary<string, ISlashCommand>()
+            .AddCommand(new RollCommand())
+            .AddCommand(new FlipCoinCommand());
 
-async Task Ready()
-{
-#if !DEBUG
-    foreach (var command in _slashCommands.Values)
+    [CommandOption(
+        "token", 't',
+        IsRequired = true,
+        EnvironmentVariable = "CowboyDiscordToken",
+        Description = "Discord application token string.")]
+    public string? DiscordToken { get; init; }
+
+    [CommandOption(
+        "guild", 'g',
+        IsRequired = false,
+        EnvironmentVariable = "CowboyDiscordGuildId",
+        Description = "Discord guild ID. Slash commands will be registered globally if this is not provided.")]
+    public ulong? DiscordGuildId { get; init; }
+
+    public async ValueTask ExecuteAsync(IConsole console)
     {
-        await _client.CreateGlobalApplicationCommandAsync(command.Build());
+        _client.Log += OnLogAsync;
+        _client.Ready += OnReadyAsync;
+        _client.SlashCommandExecuted += OnSlashCommandExecutedAsync;
+
+        await _client.LoginAsync(TokenType.Bot, DiscordToken);
+        await _client.StartAsync();
+
+        // Block this task until the program is closed.
+        await Task.Delay(-1);
     }
-#else
-    var guildId = Convert.ToUInt64(Environment.GetEnvironmentVariable("CowboyDiscordGuildId", EnvironmentVariableTarget.User));
-    var guild = _client.GetGuild(guildId);
 
-    foreach (var command in _slashCommands.Values)
+    private static Task OnLogAsync(LogMessage message)
     {
-        await guild.CreateApplicationCommandAsync(command.Build());
+        Console.WriteLine(message.ToString());
+        return Task.CompletedTask;
     }
-#endif
-}
 
-async Task SlashCommandExecuted(SocketSlashCommand command)
-{
-    // Execute the slash command with the passed name, if there is one.
-    if (_slashCommands.ContainsKey(command.Data.Name))
+    private async Task OnReadyAsync()
     {
-        await _slashCommands[command.Data.Name].ExecuteAsync(command);
+        if (DiscordGuildId is not null)
+        {
+            var guild = _client.GetGuild((ulong)DiscordGuildId) ?? throw new Exception("Guild cannot be found.");
+
+            foreach (var command in _slashCommands.Values)
+            {
+                await guild.CreateApplicationCommandAsync(command.Build());
+            }
+        }
+        else
+        {
+            foreach (var command in _slashCommands.Values)
+            {
+                await _client.CreateGlobalApplicationCommandAsync(command.Build());
+            }
+        }
+    }
+
+    private static async Task OnSlashCommandExecutedAsync(SocketSlashCommand command)
+    {
+        // Execute the slash command with the passed name, if there is one.
+        if (_slashCommands.ContainsKey(command.Data.Name))
+        {
+            await _slashCommands[command.Data.Name].ExecuteAsync(command);
+        }
     }
 }
