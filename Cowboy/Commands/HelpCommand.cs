@@ -12,7 +12,7 @@ internal class HelpCommand : ISlashCommand
     public string Name => "cowboy-help";
 
     /// <inheritdoc />
-    public string Description => "Lists all available Cowboy commands.";
+    public string Description => "Lists all available Cowboy commands";
 
     /// <inheritdoc />
     public async Task ExecuteAsync(SocketSlashCommand command)
