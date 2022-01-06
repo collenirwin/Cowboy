@@ -18,6 +18,7 @@ internal class HelpCommand : ISlashCommand
     public async Task ExecuteAsync(SocketSlashCommand command)
     {
         var commandHelpEntries = SlashCommands.All.Values
+            .OrderBy(command => command.Name)
             .Select(command => $"> `/{command.Name}` - {command.Description}");
 
         var message = $"**Cowboy Commands**" +
