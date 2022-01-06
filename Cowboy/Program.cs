@@ -15,10 +15,6 @@ await new CliApplicationBuilder()
 class MainCommand : ICommand
 {
     private static readonly DiscordSocketClient _client = new();
-    private static readonly IReadOnlyDictionary<string, ISlashCommand> _slashCommands =
-        new Dictionary<string, ISlashCommand>()
-            .AddCommand(new RollCommand())
-            .AddCommand(new FlipCoinCommand());
 
     [CommandOption(
         "token", 't',
@@ -58,27 +54,16 @@ class MainCommand : ICommand
         if (DiscordGuildId is not null)
         {
             var guild = _client.GetGuild((ulong)DiscordGuildId) ?? throw new Exception("Guild cannot be found.");
-
-            foreach (var command in _slashCommands.Values)
-            {
-                await guild.CreateApplicationCommandAsync(command.Build());
-            }
+            await SlashCommands.RegisterCommandsForGuildAsync(guild);
         }
         else
         {
-            foreach (var command in _slashCommands.Values)
-            {
-                await _client.CreateGlobalApplicationCommandAsync(command.Build());
-            }
+            await SlashCommands.RegisterCommandsGloballyAsync(_client);
         }
     }
 
     private static async Task OnSlashCommandExecutedAsync(SocketSlashCommand command)
     {
-        // Execute the slash command with the passed name, if there is one.
-        if (_slashCommands.ContainsKey(command.Data.Name))
-        {
-            await _slashCommands[command.Data.Name].ExecuteAsync(command);
-        }
+        await SlashCommands.ExecuteIfExistsAsync(command);
     }
 }
