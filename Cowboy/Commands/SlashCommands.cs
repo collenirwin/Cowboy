@@ -18,7 +18,8 @@ internal static class SlashCommands
         All = new Dictionary<string, ISlashCommand>()
             .AddCommand(new HelpCommand())
             .AddCommand(new RollCommand())
-            .AddCommand(new FlipCoinCommand());
+            .AddCommand(new FlipCoinCommand())
+            .AddCommand(new RandomWikiPageCommand());
     }
 
     /// <summary>
