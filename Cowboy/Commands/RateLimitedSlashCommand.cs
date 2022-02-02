@@ -9,6 +9,9 @@ internal abstract class RateLimitedSlashCommand : SlashCommandBase
 {
     private DateTime? _lastExecuted;
 
+    protected const string _rateLimitErrorMessage = "The rate limit has been exceeded. " +
+        "Please wait a moment before running the command again.";
+
     /// <summary>
     /// Time that must elapse in between <see cref="ExecuteAsync(SocketSlashCommand)"/> calls.
     /// </summary>
