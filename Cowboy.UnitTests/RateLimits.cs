@@ -1,5 +1,5 @@
 using Cowboy.Commands;
-using Discord.WebSocket;
+using Cowboy.Commands.Received;
 using System;
 using System.Threading.Tasks;
 using Xunit;
@@ -18,7 +18,7 @@ public class RateLimits
 
         protected override TimeSpan TimeBetweenExecutions => TimeSpan.FromMilliseconds(_msBetweenExecutions);
 
-        public override Task ExecuteAsync(SocketSlashCommand command) => base.ExecuteAsync(command);
+        public override Task ExecuteAsync(IReceivedCommand command) => base.ExecuteAsync(command);
     }
 
     [Fact]

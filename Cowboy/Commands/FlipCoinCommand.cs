@@ -1,4 +1,4 @@
-﻿using Discord.WebSocket;
+﻿using Cowboy.Commands.Received;
 
 namespace Cowboy.Commands;
 
@@ -14,7 +14,7 @@ internal class FlipCoinCommand : SlashCommandBase
     public override string Description => "Flips a coin (heads or tails)";
 
     /// <inheritdoc />
-    public override async Task ExecuteAsync(SocketSlashCommand command)
+    public override async Task ExecuteAsync(IReceivedCommand command)
     {
         var result = Random.Shared.Next(2) == 0 ? "Heads" : "Tails";
         var message = $"Coin flip:{Environment.NewLine}> **{result}**";

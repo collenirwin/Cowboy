@@ -1,4 +1,5 @@
-﻿using Cowboy.Utils;
+﻿using Cowboy.Commands.Received;
+using Cowboy.Utils;
 using Discord.WebSocket;
 
 namespace Cowboy.Commands;
@@ -55,7 +56,7 @@ internal static class SlashCommands
     {
         if (All.ContainsKey(command.Data.Name))
         {
-            await All[command.Data.Name].ExecuteAsync(command);
+            await All[command.Data.Name].ExecuteAsync(new ReceivedCommand(command));
         }
     }
 }
