@@ -1,5 +1,5 @@
-﻿using Discord;
-using Discord.WebSocket;
+﻿using Cowboy.Commands.Received;
+using Discord;
 
 namespace Cowboy.Commands;
 
@@ -15,7 +15,7 @@ internal abstract class SlashCommandBase : ISlashCommand
     public abstract string Description { get; }
 
     /// <inheritdoc />
-    public abstract Task ExecuteAsync(SocketSlashCommand command);
+    public abstract Task ExecuteAsync(IReceivedCommand command);
 
     /// <inheritdoc />
     public virtual SlashCommandProperties Build()

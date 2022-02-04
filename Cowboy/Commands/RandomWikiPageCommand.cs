@@ -1,5 +1,5 @@
-﻿using Cowboy.Utils;
-using Discord.WebSocket;
+﻿using Cowboy.Commands.Received;
+using Cowboy.Utils;
 using System.Net.Http.Headers;
 using System.Text.Json;
 
@@ -23,7 +23,7 @@ internal class RandomWikiPageCommand : RateLimitedSlashCommand
     protected override TimeSpan TimeBetweenExecutions => TimeSpan.FromMilliseconds(200);
 
     /// <inheritdoc />
-    public override async Task ExecuteAsync(SocketSlashCommand command)
+    public override async Task ExecuteAsync(IReceivedCommand command)
     {
         try
         {

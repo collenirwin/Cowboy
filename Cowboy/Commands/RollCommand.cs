@@ -1,6 +1,6 @@
-﻿using Cowboy.Utils;
+﻿using Cowboy.Commands.Received;
+using Cowboy.Utils;
 using Discord;
-using Discord.WebSocket;
 
 namespace Cowboy.Commands;
 
@@ -16,7 +16,7 @@ internal class RollCommand : SlashCommandBase
     public override string Description => "Rolls a random number (defaults to between 1 and 10)";
 
     /// <inheritdoc />
-    public override async Task ExecuteAsync(SocketSlashCommand command)
+    public override async Task ExecuteAsync(IReceivedCommand command)
     {
         var low = command.GetOptionalIntArgument("low") ?? 1;
         var high = command.GetOptionalIntArgument("high") ?? 10;

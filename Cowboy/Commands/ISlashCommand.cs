@@ -1,5 +1,5 @@
-﻿using Discord;
-using Discord.WebSocket;
+﻿using Cowboy.Commands.Received;
+using Discord;
 
 namespace Cowboy.Commands;
 
@@ -22,7 +22,7 @@ internal interface ISlashCommand
     /// Executes the command.
     /// </summary>
     /// <param name="command">The command received from Discord (includes arguments if any).</param>
-    Task ExecuteAsync(SocketSlashCommand command);
+    Task ExecuteAsync(IReceivedCommand command);
 
     /// <summary>
     /// Builds this command into its properties.

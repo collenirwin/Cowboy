@@ -1,4 +1,4 @@
-﻿using Discord.WebSocket;
+﻿using Cowboy.Commands.Received;
 
 namespace Cowboy.Commands;
 
@@ -23,7 +23,7 @@ internal abstract class RateLimitedSlashCommand : SlashCommandBase
     /// </summary>
     /// <param name="command">The command received from Discord (includes arguments if any).</param>
     /// <exception cref="RateLimitExceededException">Thrown when not enough time has passed between calls.</exception>
-    public override Task ExecuteAsync(SocketSlashCommand command)
+    public override Task ExecuteAsync(IReceivedCommand command)
     {
         if (_lastExecuted is not null && DateTime.UtcNow.Subtract(TimeBetweenExecutions) <= _lastExecuted)
         {

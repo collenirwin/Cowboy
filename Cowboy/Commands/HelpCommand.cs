@@ -1,4 +1,4 @@
-﻿using Discord.WebSocket;
+﻿using Cowboy.Commands.Received;
 
 namespace Cowboy.Commands;
 
@@ -14,7 +14,7 @@ internal class HelpCommand : SlashCommandBase
     public override string Description => "Lists all available Cowboy commands";
 
     /// <inheritdoc />
-    public override async Task ExecuteAsync(SocketSlashCommand command)
+    public override async Task ExecuteAsync(IReceivedCommand command)
     {
         var commandHelpEntries = SlashCommands.All.Values
             .OrderBy(command => command.Name)
