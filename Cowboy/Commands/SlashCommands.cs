@@ -20,7 +20,8 @@ internal static class SlashCommands
             .AddCommand(new HelpCommand())
             .AddCommand(new RollCommand())
             .AddCommand(new FlipCoinCommand())
-            .AddCommand(new RandomWikiPageCommand());
+            .AddCommand(new RandomWikiPageCommand())
+            .AddCommand(new RandomStreetViewCommand());
     }
 
     /// <summary>
