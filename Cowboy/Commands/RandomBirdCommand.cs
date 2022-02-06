@@ -3,7 +3,7 @@
 /// <summary>
 /// Gets a random bird image url from the shibe.online api.
 /// </summary>
-internal class RandomShibeCommand : ShibeCommandBase
+internal class RandomBirdCommand : ShibeCommandBase
 {
     /// <inheritdoc />
     public override string Name => "random-bird";
