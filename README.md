@@ -6,6 +6,7 @@ Tiny Discord bot for a tiny Discord server
  - `/roll [low: 1] [high: 10]` - Rolls a random number between `low` and `high` inclusive.
  - `/flip-coin` - Flips a coin, resulting in Heads or Tails.
  - `/random-wiki` - Gets a link to a random Wikipedia article.
+ - `/random-street-view` - Gets a link to a random Google Maps Street View.
 
 ### Running
 Running the following will start the bot, registering all commands to a guild:
